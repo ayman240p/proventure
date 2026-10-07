@@ -1,0 +1,24 @@
+# Operating System Files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Temporary & Session Files
+cookies.txt
+*.log
+*.tmp
+*.bak
+
+# Environment / Secret Configurations
+.env
+.env.*
+!.env.example
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

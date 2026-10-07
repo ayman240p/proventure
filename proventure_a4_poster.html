@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProVenture Academic Poster (A4) | TTS3424 IT Project</title>
+  <!-- Google Fonts for Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS RESET & VARIABLES - A4 FORMAT OPTIMIZED
+       ========================================================================== */
+    :root {
+      --primary: #0F172A;        /* Slate 900 */
+      --primary-dark: #020617;   /* Deepest Navy */
+      --primary-light: #1E293B;  /* Slate 800 */
+      --accent: #2563EB;         /* Tech Blue 600 */
+      --accent-cyan: #06B6D4;    /* Cyan 500 */
+      --accent-teal: #0D9488;    /* Teal 600 */
+      --accent-emerald: #10B981; /* Emerald 500 */
+      --accent-amber: #F59E0B;   /* Amber 500 */
+      --accent-rose: #EF4444;    /* Rose 500 */
+      
+      --whatsapp-green: #25D366; /* WhatsApp Brand Color */
+      --whatsapp-dark: #128C7E;
+      
+      --bg-page: #0B0F19;        /* Screen background */
+      --bg-canvas: #FFFFFF;      /* Poster sheet background */
+      --bg-card: #F8FAFC;        /* Card background */
+      --bg-card-highlight: #F1F5F9;
+      
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-light: #64748B;
+      --border-subtle: #E2E8F0;
+      --border-accent: rgba(37, 99, 235, 0.2);
+      
+      /* Standard ISO A4 Dimensions: 210mm x 297mm */
+      --poster-width: 210mm;
+      --poster-height: 297mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.35;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 0 60px 0;
+    }
+
+    /* ==========================================================================
+       TOP CONTROL TOOLBAR (Screen Only)
+       ========================================================================== */
+    .screen-toolbar {
+      position: sticky;
+      top: 12px;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      padding: 7px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      color: #F8FAFC;
+    }
+
+    .toolbar-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-title strong {
+      color: #FFFFFF;
+    }
+
+    .toolbar-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 30px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #F1F5F9;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+    .btn-secondary.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: white;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+    .btn-print:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+    }
+
+    /* ==========================================================================
+       POSTER CANVAS (A4 ISO Standards: 210mm x 297mm)
+       ========================================================================== */
+    .poster-viewport-wrapper {
+      transition: transform 0.25s ease;
+      transform-origin: top center;
+    }
+
+    .poster-canvas {
+      width: var(--poster-width);
+      min-height: var(--poster-height);
+      height: var(--poster-height);
+      background: var(--bg-canvas);
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Decorative Top Stripe */
+    .poster-canvas::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5mm;
+      background: linear-gradient(90deg, #1E3A8A 0%, #2563EB 25%, #06B6D4 50%, #10B981 75%, #047857 100%);
+      z-index: 10;
+    }
+
+    /* ==========================================================================
+       POSTER HEADER SECTION
+       ========================================================================== */
+    .poster-header {
+      background: linear-gradient(145deg, #0F172A 0%, #1E293B 70%, #0F172A 100%);
+      color: #FFFFFF;
+      padding: 6mm 7mm 4mm 7mm;
+      position: relative;
+      border-bottom: 1mm solid var(--accent-cyan);
+    }
+
+    .header-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2mm;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 2mm;
+    }
+
+    .institution-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .uni-emblem {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #2563EB, #06B6D4);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+    }
+
+    .uni-titles h3 {
+      font-size: 7.2pt;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1.15;
+    }
+
+    .uni-titles p {
+      font-size: 5.5pt;
+      color: #94A3B8;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+
+    .course-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 3px 8px;
+      border-radius: 5px;
+      text-align: right;
+    }
+
+    .course-badge .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      line-height: 1.1;
+    }
+
+    .course-badge .term {
+      font-size: 5pt;
+      color: #CBD5E1;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+    }
+
+    .header-main-title {
+      margin-bottom: 2mm;
+    }
+
+    .project-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: #38BDF8;
+      padding: 1.5px 6px;
+      border-radius: 12px;
+      font-size: 5pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1mm;
+    }
+
+    .header-main-title h1 {
+      font-size: 14pt;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      color: #FFFFFF;
+      margin-bottom: 1mm;
+      text-wrap: balance;
+    }
+
+    .header-main-title h1 span.gradient-text {
+      background: linear-gradient(90deg, #38BDF8 0%, #34D399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-subtitle {
+      font-size: 6.2pt;
+      color: #CBD5E1;
+      font-weight: 400;
+      max-width: 98%;
+      line-height: 1.25;
+    }
+
+    /* Student Author Info Bar */
+    .header-author-bar {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 2mm;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 5px;
+      padding: 1.5mm 2.5mm;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 1.5mm;
+    }
+
+    .author-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-item .label {
+      font-size: 4.8pt;
+      text-transform: uppercase;
+      color: #94A3B8;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .author-item .val {
+      font-size: 5.8pt;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .author-item .val.highlight {
+      color: #34D399;
+    }
+
+    /* ==========================================================================
+       KEY INFOGRAPHIC STATS BAR
+       ========================================================================== */
+    .stats-ribbon {
+      background: linear-gradient(90deg, #1E293B 0%, #0F172A 100%);
+      padding: 1.8mm 7mm;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2mm;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 1.2mm 2mm;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.green { background: rgba(16, 185, 129, 0.2); color: #10B981; }
+    .stat-icon.blue { background: rgba(37, 99, 235, 0.2); color: #60A5FA; }
+    .stat-icon.cyan { background: rgba(6, 182, 212, 0.2); color: #22D3EE; }
+    .stat-icon.amber { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+
+    .stat-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-size: 6.8pt;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .stat-desc {
+      font-size: 4.5pt;
+      color: #94A3B8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT 3-COLUMN INFOGRAPHIC GRID
+       ========================================================================== */
+    .poster-body {
+      flex: 1;
+      padding: 3mm 5mm 3mm 5mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm;
+      background: #FAFAFB;
+    }
+
+    .poster-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2mm;
+    }
+
+    /* SECTION CARD STYLING */
+    .poster-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 2.2mm 2.6mm;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .poster-card.featured {
+      border: 1px solid rgba(37, 99, 235, 0.35);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 1.5mm;
+      padding-bottom: 1mm;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .card-header::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 14mm;
+      height: 1.5px;
+      background: var(--accent);
+    }
+
+    .card-header.accent-emerald::after { background: var(--accent-emerald); }
+    .card-header.accent-cyan::after { background: var(--accent-cyan); }
+    .card-header.accent-amber::after { background: var(--accent-amber); }
+
+    .sec-badge {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: var(--primary);
+      color: white;
+      font-size: 5.5pt;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-header h2 {
+      font-size: 6.8pt;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+
+    .card-content {
+      font-size: 5.2pt;
+      color: var(--text-muted);
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
+    .card-content p {
+      margin-bottom: 1mm;
+    }
+
+    .card-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Sub-headers inside sections */
+    .sub-heading {
+      font-size: 5.4pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 1.2mm 0 0.8mm 0;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* ==========================================================================
+       SECTION 1: ABSTRACT SPECIAL STYLES
+       ========================================================================== */
+    .abstract-box {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EEF2F6 100%);
+      border-left: 2px solid var(--accent);
+      padding: 1.5mm 2mm;
+      border-radius: 0 5px 5px 0;
+      font-size: 5.1pt;
+      line-height: 1.35;
+      color: #334155;
+    }
+
+    .keywords-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 1.5mm;
+    }
+
+    .kw-tag {
+      background: #E2E8F0;
+      color: #334155;
+      font-size: 4.6pt;
+      font-weight: 600;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    /* ==========================================================================
+       SECTION 3: PROBLEM STATEMENT VISUAL CALLOUTS
+       ========================================================================== */
+    .problem-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4mm;
+    }
+
+    .problem-item {
+      display: flex;
+      gap: 5px;
+      background: #FEF2F2;
+      border: 1px solid #FEE2E2;
+      border-radius: 4px;
+      padding: 1.2mm 1.8mm;
+    }
+
+    .problem-icon {
+      color: #DC2626;
+      font-size: 7.5pt;
+      flex-shrink: 0;
+      margin-top: 0px;
+    }
+
+    .problem-text h4 {
+      font-size: 5.2pt;
+      font-weight: 700;
+      color: #991B1B;
+      margin-bottom: 0.2mm;
+    }
+
+    .problem-text p {
+      font-size: 4.8pt;
+      color: #7F1D1D;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       SECTION 4: OBJECTIVES (3 OBJECTIVES)
+       ========================================================================== */
+    .objectives-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4mm;
+    }
+
+    .obj-item {
+      display: flex;
+      gap: 6px;
+      background: #F0FDF4;
+      border: 1px solid #DCFCE7;
+      border-radius: 4px;
+      padding: 1.2mm 1.8mm;
+      align-items: flex-start;
+    }
+
+    .obj-num {
+      background: #16A34A;
+      color: white;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.8pt;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(22, 163, 74, 0.3);
+    }
+
+    .obj-body h4 {
+      font-size: 5.2pt;
+      font-weight: 700;
+      color: #14532D;
+      margin-bottom: 0.2mm;
+    }
+
+    .obj-body p {
+      font-size: 4.8pt;
+      color: #166534;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .obj-note-pill {
+      margin-top: 1.2mm;
+      background: #EFF6FF;
+      border: 1px dashed #BFDBFE;
+      border-radius: 4px;
+      padding: 1mm 1.5mm;
+      font-size: 4.6pt;
+      color: #1E40AF;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ==========================================================================
+       SECTION 5: MATERIALS & METHODS / ARCHITECTURE
+       ========================================================================== */
+    .tech-stack-pills {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2mm;
+      margin-bottom: 1.5mm;
+    }
+
+    .tech-item {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 1mm 1.5mm;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tech-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .tech-dot.fe { background: #3B82F6; }
+    .tech-dot.be { background: #10B981; }
+    .tech-dot.db { background: #F59E0B; }
+    .tech-dot.api { background: #8B5CF6; }
+
+    .tech-item-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tech-item-title {
+      font-size: 4.8pt;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .tech-item-sub {
+      font-size: 4.2pt;
+      color: var(--text-light);
+    }
+
+    /* Methodology Sprint Flow Infographic */
+    .sprint-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2mm;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 1.5mm;
+      margin-bottom: 1.5mm;
+    }
+
+    .sprint-stage {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 4.8pt;
+    }
+
+    .sprint-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 4.4pt;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: #0F172A;
+      color: #38BDF8;
+      width: 38px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sprint-content {
+      flex: 1;
+      color: #334155;
+      font-weight: 500;
+      border-left: 1.5px solid #CBD5E1;
+      padding-left: 4px;
+      line-height: 1.2;
+    }
+
+    /* System Architecture Diagram */
+    .arch-flowchart {
+      background: #0F172A;
+      border-radius: 5px;
+      padding: 1.8mm;
+      color: white;
+      margin-top: 0.8mm;
+    }
+
+    .arch-title {
+      font-size: 4.8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #94A3B8;
+      margin-bottom: 1.2mm;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .flow-diagram-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px;
+    }
+
+    .flow-node {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1.2mm 1mm;
+      text-align: center;
+      flex: 1;
+    }
+
+    .flow-node.highlight-node {
+      background: rgba(37, 99, 235, 0.25);
+      border-color: #3B82F6;
+    }
+
+    .flow-node.whatsapp-node {
+      background: rgba(37, 211, 102, 0.2);
+      border-color: #25D366;
+    }
+
+    .flow-node-icon {
+      font-size: 6.5pt;
+      margin-bottom: 1px;
+    }
+
+    .flow-node-name {
+      font-size: 4.6pt;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #F8FAFC;
+    }
+
+    .flow-node-tech {
+      font-size: 3.8pt;
+      color: #94A3B8;
+    }
+
+    .flow-arrow {
+      color: #64748B;
+      font-size: 6pt;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       SECTION 6: RESULT / OUTPUT VISUAL MOCKUPS
+       ========================================================================== */
+    .ui-showcase-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+    }
+
+    .status-toggle-demo {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 1.2mm 1.8mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-info {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+    }
+
+    .status-label {
+      font-size: 4.8pt;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .status-badge-live {
+      background: #DCFCE7;
+      color: #15803D;
+      font-size: 4.4pt;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 8px;
+      border: 1px solid #BBF7D0;
+    }
+
+    .mock-service-card {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 5px;
+      padding: 1.6mm 2mm;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-top-tag {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8mm;
+    }
+
+    .category-tag {
+      font-size: 4.4pt;
+      font-weight: 700;
+      background: #EFF6FF;
+      color: #1D4ED8;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .price-tag {
+      font-size: 5.8pt;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    .service-card-title {
+      font-size: 5.4pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8mm;
+      line-height: 1.2;
+    }
+
+    .service-card-desc {
+      font-size: 4.6pt;
+      color: var(--text-muted);
+      margin-bottom: 1.2mm;
+      line-height: 1.25;
+    }
+
+    .whatsapp-action-btn {
+      background: #25D366;
+      color: white;
+      border-radius: 4px;
+      padding: 1.2mm 2mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 5pt;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 1px 4px rgba(37, 211, 102, 0.3);
+    }
+
+    .wa-uri-preview {
+      background: #1E293B;
+      border-radius: 3px;
+      padding: 1mm 1.5mm;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 4pt;
+      color: #38BDF8;
+      word-break: break-all;
+      margin-top: 1mm;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ==========================================================================
+       SECTION 7: DISCUSSION & COMPARATIVE BENCHMARK TABLE
+       ========================================================================== */
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 4.6pt;
+      margin-top: 0.8mm;
+      margin-bottom: 1.2mm;
+    }
+
+    .benchmark-table th {
+      background: #0F172A;
+      color: #FFFFFF;
+      text-align: left;
+      padding: 2.5px 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 4.2pt;
+      letter-spacing: 0.2px;
+    }
+
+    .benchmark-table th:first-child {
+      border-top-left-radius: 4px;
+    }
+
+    .benchmark-table th:last-child {
+      border-top-right-radius: 4px;
+    }
+
+    .benchmark-table td {
+      padding: 2.5px 4px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #334155;
+    }
+
+    .benchmark-table tr:nth-child(even) {
+      background: #F8FAFC;
+    }
+
+    .benchmark-table tr.highlight-row {
+      background: #ECFDF5;
+      font-weight: 600;
+    }
+
+    .benchmark-table tr.highlight-row td {
+      color: #065F46;
+      border-bottom: 1px solid #A7F3D0;
+    }
+
+    .pill-win {
+      background: #10B981;
+      color: white;
+      font-size: 4pt;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 2px;
+    }
+
+    .pill-lose {
+      background: #EF4444;
+      color: white;
+      font-size: 4pt;
+      font-weight: 700;
+      padding: 1px 3px;
+      border-radius: 2px;
+    }
+
+    .feasibility-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1mm;
+      margin-top: 0.8mm;
+    }
+
+    .feasibility-col {
+      background: #F1F5F9;
+      border-radius: 4px;
+      padding: 1.2mm;
+      text-align: center;
+    }
+
+    .feasibility-col h5 {
+      font-size: 4.8pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5mm;
+    }
+
+    .feasibility-col p {
+      font-size: 4.2pt;
+      color: var(--text-muted);
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       SECTION 8: CONCLUSION SPECIAL STYLING
+       ========================================================================== */
+    .conclusion-summary-box {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      border: 1px solid #BFDBFE;
+      border-radius: 5px;
+      padding: 1.5mm 2mm;
+      margin-bottom: 1.2mm;
+    }
+
+    .conclusion-summary-box h4 {
+      font-size: 5.2pt;
+      font-weight: 800;
+      color: #1E40AF;
+      margin-bottom: 0.5mm;
+    }
+
+    .conclusion-summary-box p {
+      font-size: 4.8pt;
+      color: #1E3A8A;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .future-scope-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8mm;
+    }
+
+    .scope-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 4.6pt;
+      color: #334155;
+    }
+
+    .scope-check {
+      color: #10B981;
+      font-size: 5.5pt;
+    }
+
+    /* ==========================================================================
+       POSTER FOOTER
+       ========================================================================== */
+    .poster-footer {
+      background: #0F172A;
+      color: #94A3B8;
+      padding: 2.2mm 7mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 4.8pt;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-left strong {
+      color: #F8FAFC;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 4.5pt;
+      color: #64748B;
+    }
+
+    /* ==========================================================================
+       PRINT & A4 PAGE SIZING RULES (Single-Page ISO A4 Guaranteed)
+       ========================================================================== */
+    @page {
+      size: A4 portrait; /* Standard ISO A4: 210mm x 297mm */
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        overflow: hidden !important;
+      }
+
+      .no-print,
+      .screen-toolbar {
+        display: none !important;
+      }
+
+      .poster-viewport-wrapper {
+        transform: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .poster-canvas {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        min-height: 297mm !important;
+        max-height: 297mm !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        overflow: hidden !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Force graphics & backgrounds to print cleanly */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SCREEN VIEW CONTROLLER & TOOLBAR (Hidden on print)
+       ========================================================================== -->
+  <div class="screen-toolbar no-print">
+    <div class="toolbar-title">
+      <span>📄 Academic Document Preview</span>
+      <strong>ISO A4 Portrait (210 × 297 mm)</strong>
+    </div>
+
+    <div class="toolbar-btn-group">
+      <button class="btn btn-secondary active" onclick="setZoom('fit')" id="btn-fit">🔍 Fit Screen</button>
+      <button class="btn btn-secondary" onclick="setZoom(0.75)" id="btn-75">75%</button>
+      <button class="btn btn-secondary" onclick="setZoom(1.0)" id="btn-100">100% (True A4)</button>
+      <button class="btn btn-secondary" onclick="setZoom(1.25)" id="btn-125">125%</button>
+    </div>
+
+    <button class="btn btn-print" onclick="window.print()">
+      🖨️ Print / Save PDF (A4)
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       POSTER VIEWPORT & CANVAS CONTAINER
+       ========================================================================== -->
+  <div class="poster-viewport-wrapper" id="posterWrapper">
+    <main class="poster-canvas" id="posterCanvas">
+
+      <!-- ======================================================================
+           HEADER SECTION (Faculty, Title, Author Metadata)
+           ====================================================================== -->
+      <header class="poster-header">
+        <div class="header-top-meta">
+          <div class="institution-tag">
+            <div class="uni-emblem">KPTM</div>
+            <div class="uni-titles">
+              <h3>Faculty of Computer Science and Information Technology</h3>
+              <p>Kolej Poly-Tech Mara (KPTM) • Final Year IT Capstone Project</p>
+            </div>
+          </div>
+          <div class="course-badge">
+            <div class="code">TTS3424</div>
+            <div class="term">IT PROJECT PROPOSAL (2026)</div>
+          </div>
+        </div>
+
+        <div class="header-main-title">
+          <div class="project-pill">🚀 Web Development & Hyper-Local Marketplace</div>
+          <h1>ProVenture: <span class="gradient-text">Local Freelancer & Micro-Services</span> Web Directory</h1>
+          <p class="header-subtitle">
+            A Zero-Commission Community Marketplace Integrating Dynamic Keyword/Price Filtering, Authenticated Provider Availability Controls, and Direct WhatsApp API URI Deep-Linking.
+          </p>
+        </div>
+
+        <!-- Student & Course Details -->
+        <div class="header-author-bar">
+          <div class="author-item">
+            <span class="label">Candidate Name</span>
+            <span class="val highlight">AYMAN AQASYAH BIN MOHD RADZI</span>
+          </div>
+          <div class="author-item">
+            <span class="label">Student ID</span>
+            <span class="val">BPN241210191</span>
+          </div>
+          <div class="author-item">
+            <span class="label">Class / Section</span>
+            <span class="val">DIT 6/1</span>
+          </div>
+          <div class="author-item">
+            <span class="label">Specialization Area</span>
+            <span class="val">Full-Stack Web Dev & Systems</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ======================================================================
+           KEY INFOGRAPHIC METRICS RIBBON
+           ====================================================================== -->
+      <section class="stats-ribbon">
+        <div class="stat-pill">
+          <div class="stat-icon green">💰</div>
+          <div class="stat-text">
+            <span class="stat-num">0% FEE</span>
+            <span class="stat-desc">Zero Commission Overhead</span>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-icon blue">⚡</div>
+          <div class="stat-text">
+            <span class="stat-num">&lt; 2.5s</span>
+            <span class="stat-desc">Search Query Speed</span>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-icon cyan">💬</div>
+          <div class="stat-text">
+            <span class="stat-num">1-CLICK</span>
+            <span class="stat-desc">WhatsApp Direct Booking</span>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-icon amber">🟢</div>
+          <div class="stat-text">
+            <span class="stat-num">LIVE TOGGLE</span>
+            <span class="stat-desc">Real-Time Availability</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           POSTER BODY (3 MODULAR COLUMNS)
+           ====================================================================== -->
+      <div class="poster-body">
+
+        <!-- ==================================================================
+             COLUMN 1: FOUNDATION (Abstract, Intro, Problem, Objectives)
+             ================================================================== -->
+        <div class="poster-col">
+          
+          <!-- 1. ABSTRACT -->
+          <article class="poster-card">
+            <div class="card-header accent-cyan">
+              <span class="sec-badge">1</span>
+              <h2>Abstract</h2>
+            </div>
+            <div class="card-content">
+              <div class="abstract-box">
+                <strong>ProVenture</strong> is an innovative, hyper-local web directory engineered to bridge the operational gap between student micro-freelancers, campus gig providers, and local neighborhood clients. Conventional gig platforms enforce prohibitive commission structures (up to 20%) and complex escrow systems unsuited for low-cost, on-campus micro-tasks. 
+                <br><br>
+                ProVenture addresses these frictions by coupling dynamic search indexing and price filtering with native <strong>WhatsApp Business URI deep linking (wa.me)</strong>. This architecture eliminates intermediary transactional fees, empowers service providers with real-time availability toggles, and allows instant, fee-free client-provider negotiations.
+              </div>
+              <div class="keywords-tag-row">
+                <span class="kw-tag">#MicroFreelancing</span>
+                <span class="kw-tag">#ZeroCommission</span>
+                <span class="kw-tag">#WhatsAppAPI</span>
+                <span class="kw-tag">#WebDirectory</span>
+                <span class="kw-tag">#AgileSDLC</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. INTRODUCTION -->
+          <article class="poster-card">
+            <div class="card-header">
+              <span class="sec-badge">2</span>
+              <h2>Introduction</h2>
+            </div>
+            <div class="card-content">
+              <p>
+                In academic environments and localized neighborhoods, micro-services such as peer calculus tutoring, PC/gadget reformatting, parcel dispatch running, and event graphic design represent vital supplemental income streams.
+              </p>
+              <div class="sub-heading">🎯 Project Relevance to IT Course</div>
+              <p>
+                Developed as a full-stack web application under the <strong>TTS3424 IT Project</strong> syllabus, ProVenture integrates:
+              </p>
+              <ul style="padding-left: 12px; font-size: 5pt; color: #475569; display: flex; flex-direction: column; gap: 2px;">
+                <li><strong>Web Architecture:</strong> Responsive client UI paired with robust backend data controllers.</li>
+                <li><strong>Relational DBMS:</strong> Multi-entity normalization across Users, Services, and Categories.</li>
+                <li><strong>Security:</strong> Session management with bcrypt hashed authentication.</li>
+                <li><strong>External Protocols:</strong> URI string parameters for frictionless communication.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 3. PROBLEM STATEMENT -->
+          <article class="poster-card">
+            <div class="card-header accent-amber">
+              <span class="sec-badge">3</span>
+              <h2>Problem Statement</h2>
+            </div>
+            <div class="card-content">
+              <p style="margin-bottom: 1mm;">
+                Local micro-freelancers rely heavily on unstructured channels, presenting two major operational hurdles:
+              </p>
+              <div class="problem-grid">
+                <div class="problem-item">
+                  <div class="problem-icon">⚠️</div>
+                  <div class="problem-text">
+                    <h4>Lack of Structure & Searchability</h4>
+                    <p>Ad-hoc WhatsApp groups and Facebook posts lack categorizations, keyword indexing, and live filters. Listings are rapidly buried under chat chatter, rendering services untraceable.</p>
+                  </div>
+                </div>
+                <div class="problem-item">
+                  <div class="problem-icon">💸</div>
+                  <div class="problem-text">
+                    <h4>Impracticality of Global Escrow Marketplaces</h4>
+                    <p>Platforms like Fiverr or Upwork levy steep commission fees (up to 20%), require complex international payouts, and focus on remote jobs rather than local physical micro-tasks.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. OBJECTIVES -->
+          <article class="poster-card featured">
+            <div class="card-header accent-emerald">
+              <span class="sec-badge">4</span>
+              <h2>Project Objectives</h2>
+            </div>
+            <div class="card-content">
+              <div class="objectives-list">
+                <div class="obj-item">
+                  <div class="obj-num">1</div>
+                  <div class="obj-body">
+                    <h4>Responsive Directory & Filtering</h4>
+                    <p>To design and develop a responsive web directory that organizes local micro-services into structured categories with dynamic keyword and price-range filtering.</p>
+                  </div>
+                </div>
+                <div class="obj-item">
+                  <div class="obj-num">2</div>
+                  <div class="obj-body">
+                    <h4>Zero-Fee "Click-to-Chat" Direct Integration</h4>
+                    <p>To integrate a direct communication mechanism utilizing the WhatsApp API URI scheme (<code>wa.me</code>), enabling seamless, zero-commission client-provider bookings.</p>
+                  </div>
+                </div>
+                <div class="obj-item">
+                  <div class="obj-num">3</div>
+                  <div class="obj-body">
+                    <h4>Authenticated Provider Portal & Live Toggle</h4>
+                    <p>To build an authenticated provider portal allowing freelancers to perform full CRUD operations on service listings and toggle real-time availability status (Available/Busy).</p>
+                  </div>
+                </div>
+              </div>
+              <div class="obj-note-pill">
+                <span>⚡</span>
+                <span><strong>Scope Focus:</strong> Feasibility-focused core delivery (Rating aggregation algorithm excluded to ensure practical viability).</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- ==================================================================
+             COLUMN 2: METHODOLOGY & ARCHITECTURE (Materials & Methods)
+             ================================================================== -->
+        <div class="poster-col">
+          
+          <!-- 5. MATERIALS AND METHODS -->
+          <article class="poster-card" style="height: 100%;">
+            <div class="card-header accent-cyan">
+              <span class="sec-badge">5</span>
+              <h2>Materials & Methods</h2>
+            </div>
+            <div class="card-content">
+              
+              <div class="sub-heading">🛠️ Core Technology Stack</div>
+              <div class="tech-stack-pills">
+                <div class="tech-item">
+                  <span class="tech-dot fe"></span>
+                  <div class="tech-item-text">
+                    <span class="tech-item-title">HTML5 / CSS / JS</span>
+                    <span class="tech-item-sub">Responsive Front-End UI</span>
+                  </div>
+                </div>
+                <div class="tech-item">
+                  <span class="tech-dot be"></span>
+                  <div class="tech-item-text">
+                    <span class="tech-item-title">PHP 8.2 / REST APIs</span>
+                    <span class="tech-item-sub">Backend Routing & Logic</span>
+                  </div>
+                </div>
+                <div class="tech-item">
+                  <span class="tech-dot db"></span>
+                  <div class="tech-item-text">
+                    <span class="tech-item-title">MySQL RDBMS</span>
+                    <span class="tech-item-sub">Relational Foreign Keys</span>
+                  </div>
+                </div>
+                <div class="tech-item">
+                  <span class="tech-dot api"></span>
+                  <div class="tech-item-text">
+                    <span class="tech-item-title">WhatsApp URI Scheme</span>
+                    <span class="tech-item-sub">Deep-Link URL Protocol</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sub-heading">🔄 Agile SDLC Prototyping (2-Week Iterations)</div>
+              <div class="sprint-timeline">
+                <div class="sprint-stage">
+                  <span class="sprint-badge">Sprint 1</span>
+                  <div class="sprint-content"><strong>Requirements & Database ERD:</strong> Schema normalization (Users, Services, Categories).</div>
+                </div>
+                <div class="sprint-stage">
+                  <span class="sprint-badge">Sprint 2</span>
+                  <div class="sprint-content"><strong>Backend & Authentication:</strong> Secure password hashing (bcrypt), CRUD controllers & session handling.</div>
+                </div>
+                <div class="sprint-stage">
+                  <span class="sprint-badge">Sprint 3</span>
+                  <div class="sprint-content"><strong>Directory UI & WhatsApp Integration:</strong> Real-time filtering, responsive cards & dynamic URI encoding.</div>
+                </div>
+                <div class="sprint-stage">
+                  <span class="sprint-badge">Sprint 4</span>
+                  <div class="sprint-content"><strong>QA Testing & Deployment:</strong> Cross-browser testing, mobile validation & performance optimization.</div>
+                </div>
+              </div>
+
+              <div class="sub-heading">📐 System Architecture & Data Flow</div>
+              <div class="arch-flowchart">
+                <div class="arch-title">
+                  <span>Client-Server-Messaging Architecture</span>
+                  <span style="color: #38BDF8;">Full-Stack Flow</span>
+                </div>
+                
+                <div class="flow-diagram-container">
+                  <div class="flow-node highlight-node">
+                    <div class="flow-node-icon">💻</div>
+                    <div class="flow-node-name">Client Browser</div>
+                    <div class="flow-node-tech">Responsive UI</div>
+                  </div>
+                  <div class="flow-arrow">⇄</div>
+                  <div class="flow-node">
+                    <div class="flow-node-icon">⚙️</div>
+                    <div class="flow-node-name">Web Server</div>
+                    <div class="flow-node-tech">PHP / REST API</div>
+                  </div>
+                  <div class="flow-arrow">⇄</div>
+                  <div class="flow-node">
+                    <div class="flow-node-icon">🗄️</div>
+                    <div class="flow-node-name">MySQL DB</div>
+                    <div class="flow-node-tech">Relational Integrity</div>
+                  </div>
+                  <div class="flow-arrow" style="color: #25D366;">➔</div>
+                  <div class="flow-node whatsapp-node">
+                    <div class="flow-node-icon">💬</div>
+                    <div class="flow-node-name">WhatsApp</div>
+                    <div class="flow-node-tech">wa.me URI Chat</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sub-heading" style="margin-top: 1.5mm;">⚙️ Conceptual User Workflow</div>
+              <ol style="padding-left: 12px; font-size: 4.8pt; color: #475569; display: flex; flex-direction: column; gap: 1.5px;">
+                <li><strong>Provider Onboarding:</strong> Freelancer registers, posts micro-service listing with price tag, and sets availability status.</li>
+                <li><strong>Client Discovery:</strong> Client navigates to portal, selects category (e.g. Tutoring), and applies keyword search.</li>
+                <li><strong>Instant Engagement:</strong> System parses active listings; client clicks "Book via WhatsApp", triggering a formatted URI redirection with pre-filled service details.</li>
+              </ol>
+
+            </div>
+          </article>
+
+        </div>
+
+        <!-- ==================================================================
+             COLUMN 3: RESULTS, DISCUSSION & CONCLUSION
+             ================================================================== -->
+        <div class="poster-col">
+          
+          <!-- 6. RESULT / OUTPUT -->
+          <article class="poster-card featured">
+            <div class="card-header accent-emerald">
+              <span class="sec-badge">6</span>
+              <h2>Result & Output</h2>
+            </div>
+            <div class="card-content">
+              <div class="ui-showcase-box">
+                
+                <!-- Mock Service Card -->
+                <div class="mock-service-card">
+                  <div class="card-top-tag">
+                    <span class="category-tag">📚 Academic Tutoring</span>
+                    <span class="price-tag">RM 25.00 <small style="font-size: 4.2pt; color: #64748B;">/hr</small></span>
+                  </div>
+                  <div class="service-card-title">Calculus & Linear Algebra Peer Tutoring</div>
+                  <div class="service-card-desc">1-on-1 exam prep sessions on campus. Includes tailored revision sheets, past semester paper walk-throughs, and formula mastery.</div>
+                  
+                  <div class="status-toggle-demo" style="margin-bottom: 1.2mm;">
+                    <div class="status-info">
+                      <div class="pulse-dot"></div>
+                      <span class="status-label">Provider Live Status:</span>
+                    </div>
+                    <span class="status-badge-live">● Available Now</span>
+                  </div>
+
+                  <a class="whatsapp-action-btn" href="#">
+                    <span>💬 Book Directly via WhatsApp</span>
+                  </a>
+
+                  <div class="wa-uri-preview">
+                    <strong>Generated URI:</strong> https://wa.me/60123456789?text=Hi%2C%20I%20am%20interested%20in%20your%20Calculus%20Tutoring%20service.
+                  </div>
+                </div>
+
+                <!-- Verified Key Output Metrics -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5mm; margin-top: 0.5mm;">
+                  <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 4px; padding: 1.2mm; text-align: center;">
+                    <div style="font-size: 7.5pt; font-weight: 800; color: #10B981;">100%</div>
+                    <div style="font-size: 4.5pt; color: #475569; font-weight: 600;">Responsive Mobile UI</div>
+                  </div>
+                  <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 4px; padding: 1.2mm; text-align: center;">
+                    <div style="font-size: 7.5pt; font-weight: 800; color: #2563EB;">0ms</div>
+                    <div style="font-size: 4.5pt; color: #475569; font-weight: 600;">Escrow Checkout Friction</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. DISCUSSION -->
+          <article class="poster-card">
+            <div class="card-header accent-cyan">
+              <span class="sec-badge">7</span>
+              <h2>Discussion</h2>
+            </div>
+            <div class="card-content">
+              
+              <div class="sub-heading">📊 Comparative Benchmark Matrix</div>
+              <table class="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>Platform</th>
+                    <th>Fee</th>
+                    <th>Booking Mechanism</th>
+                    <th>Status Toggle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Fiverr</strong></td>
+                    <td><span class="pill-lose">20% Cut</span></td>
+                    <td>In-app Escrow</td>
+                    <td>Queue-based</td>
+                  </tr>
+                  <tr>
+                    <td><strong>LokalGig</strong></td>
+                    <td>Free</td>
+                    <td>Static Profile</td>
+                    <td>Static (None)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Recommend.my</strong></td>
+                    <td>Lead Fee</td>
+                    <td>Quote Request</td>
+                    <td>Admin Managed</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><strong>ProVenture (Ours)</strong></td>
+                    <td><span class="pill-win">0% Free</span></td>
+                    <td>Click-to-Chat (wa.me)</td>
+                    <td>Real-Time Toggle</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="sub-heading">🔬 Multi-Dimensional Feasibility</div>
+              <div class="feasibility-grid">
+                <div class="feasibility-col">
+                  <h5>Technical</h5>
+                  <p>Standard open-source PHP/MySQL stack with zero third-party gateway dependencies.</p>
+                </div>
+                <div class="feasibility-col">
+                  <h5>Operational</h5>
+                  <p>Zero user learning curve as WhatsApp is universally adopted by students and locals.</p>
+                </div>
+                <div class="feasibility-col">
+                  <h5>Economic</h5>
+                  <p>Zero hosting cost barrier; freelancers retain 100% of income generated.</p>
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- 8. CONCLUSION -->
+          <article class="poster-card">
+            <div class="card-header accent-amber">
+              <span class="sec-badge">8</span>
+              <h2>Conclusion</h2>
+            </div>
+            <div class="card-content">
+              <div class="conclusion-summary-box">
+                <h4>Empowering Campus & Local Economies</h4>
+                <p>
+                  ProVenture successfully demonstrates that eliminating complex middleman infrastructures in favor of lightweight, URI-driven communication directly addresses the operational bottlenecks faced by campus freelancers. It marries structured discoverability with instant negotiation.
+                </p>
+              </div>
+
+              <div class="sub-heading">🚀 Future Enhancements</div>
+              <div class="future-scope-list">
+                <div class="scope-item">
+                  <span class="scope-check">✓</span>
+                  <span><strong>Geolocation Proximity Radius:</strong> Distance-based spatial service filtering.</span>
+                </div>
+                <div class="scope-item">
+                  <span class="scope-check">✓</span>
+                  <span><strong>Student ID Badging:</strong> University email verification for enhanced safety.</span>
+                </div>
+                <div class="scope-item">
+                  <span class="scope-check">✓</span>
+                  <span><strong>Push Notifications:</strong> Real-time browser alerts on provider status updates.</span>
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================================
+           POSTER FOOTER BAR
+           ====================================================================== -->
+      <footer class="poster-footer">
+        <div class="footer-left">
+          <span>Presented for: <strong>TTS3424 IT Project Proposal Evaluation (30%)</strong></span>
+          <span>•</span>
+          <span>Faculty of Computer Science and Information Technology, KPTM</span>
+        </div>
+        <div class="footer-right">
+          <span>AUTHOR: AYMAN AQASYAH BIN MOHD RADZI</span>
+          <span>ID: BPN241210191</span>
+          <span>CLASS: DIT 6/1</span>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       CLIENT-SIDE SCRIPT FOR INTERACTIVE PREVIEW & ZOOM
+       ========================================================================== -->
+  <script>
+    function setZoom(mode) {
+      const wrapper = document.getElementById('posterWrapper');
+      const canvas = document.getElementById('posterCanvas');
+      
+      // Update buttons
+      document.querySelectorAll('.toolbar-btn-group .btn').forEach(btn => btn.classList.remove('active'));
+
+      if (mode === 'fit') {
+        const availableWidth = window.innerWidth - 60;
+        const availableHeight = window.innerHeight - 120;
+        
+        // Calculate scale to fit in viewport
+        const scaleX = availableWidth / canvas.offsetWidth;
+        const scaleY = availableHeight / canvas.offsetHeight;
+        const scale = Math.min(scaleX, scaleY, 1.4);
+        
+        wrapper.style.transform = `scale(${scale})`;
+        wrapper.style.marginBottom = `${-(canvas.offsetHeight * (1 - scale))}px`;
+        document.getElementById('btn-fit').classList.add('active');
+      } else {
+        wrapper.style.transform = `scale(${mode})`;
+        wrapper.style.marginBottom = `${-(canvas.offsetHeight * (1 - mode))}px`;
+        
+        if (mode === 0.75) document.getElementById('btn-75')?.classList.add('active');
+        if (mode === 1.0) document.getElementById('btn-100')?.classList.add('active');
+        if (mode === 1.25) document.getElementById('btn-125')?.classList.add('active');
+      }
+    }
+
+    // Auto fit on initial load
+    window.addEventListener('load', () => {
+      // Default to fit or 100% depending on screen resolution
+      if (window.innerWidth >= 1200 && window.innerHeight >= 1150) {
+        setZoom(1.0);
+      } else {
+        setZoom('fit');
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      const activeBtn = document.querySelector('.toolbar-btn-group .btn.active');
+      if (activeBtn && activeBtn.id === 'btn-fit') {
+        setZoom('fit');
+      }
+    });
+  </script>
+</body>
+</html>
